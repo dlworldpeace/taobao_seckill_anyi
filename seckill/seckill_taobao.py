@@ -158,54 +158,58 @@ class ChromeDrive:
                 if retry_count > max_retry_count:
                     print("重试抢购次数达到上限，放弃重试...")
                     break
-
+                    
                 try:
-# 判断存在结算按钮
+                    # current_time = datetime.now()
+                    print("准备结算")
+                    # 判断存在结算按钮
                     if self.driver.find_element_by_id("J_Go"):
-                        # coords = pyautogui.locateOnScreen('/Users/chenhx/Desktop/github/taobao_seckill/img/jiesuan.jpg')
-                        # x, y = pyautogui.center(coords)
-                        #   此处的计算值请填写自己的,此处要做成配置项
-                        # x = 27.3 / 32.1 * 1680 = 1428.8
-                        # y = 11.4 / 20.7 * 1050 = 578.3
-                        # 坐标计算方式开始
-                        width = pyautogui.size().width
-                        height = pyautogui.size().height
-                        thisWidth = global_config.getRaw('config', 'thisWidth')
-                        thisHeight = global_config.getRaw('config', 'thisHeight')
-                        jieSuanWidth = global_config.getRaw('config', 'jieSuanWidth')
-                        jieSuanHeight = global_config.getRaw('config', 'jieSuanHeight')
-                        x = float(jieSuanWidth)/float(thisWidth) * width
-                        y = float(jieSuanHeight)/float(thisHeight) * height
-                        print(f"屏幕宽高为：({width},{height})")
-                        print(f"坐标为：({x},{y})")
-                        # 移动鼠标到指定坐标，方便定位
-                        pyautogui.moveTo(x, y)
-                        pyautogui.leftClick(x, y)
-                        # 坐标计算方式结束
+                        # 坐标计算方式时间大于1秒，直接点击元素大概0.05秒
+                    #     # coords = pyautogui.locateOnScreen('/Users/chenhx/Desktop/github/taobao_seckill/img/jiesuan.jpg')
+                    #     # x, y = pyautogui.center(coords)
+                    #     #   此处的计算值请填写自己的,此处要做成配置项
+                    #     # x = 27.3 / 32.1 * 1680 = 1428.8
+                    #     # y = 11.4 / 20.7 * 1050 = 578.3
+                    #     # 坐标计算方式开始
+
+                    #     width = pyautogui.size().width
+                    #     height = pyautogui.size().height
+                    #     thisWidth = global_config.getRaw('config', 'thisWidth')
+                    #     thisHeight = global_config.getRaw('config', 'thisHeight')
+                    #     jieSuanWidth = global_config.getRaw('config', 'jieSuanWidth')
+                    #     jieSuanHeight = global_config.getRaw('config', 'jieSuanHeight')
+                    #     x = float(jieSuanWidth)/float(thisWidth) * width
+                    #     y = float(jieSuanHeight)/float(thisHeight) * height
+                    #     print(f"屏幕宽高为：({width},{height})")
+                    #     print(f"坐标为：({x},{y})")
+                    #     # 移动鼠标到指定坐标，方便定位
+                    #     pyautogui.moveTo(x, y)
+                    #     pyautogui.leftClick(x, y)
+                        # 坐标计算方式结束 用时一般1.5s
                         # 获取元素方式开始
-                        if self.driver.find_element_by_link_text("结 算"):
-                            self.driver.find_element_by_link_text("结 算").click()
-                            # 获取元素方式结束
-                            print("已经点击结算按钮...")
-                            click_submit_times = 0
-                            while True:
-                                try:
-                                    if click_submit_times < 10:
-                                        self.driver.find_element_by_link_text('提交订单').click()
-                                        print("已经点击提交订单按钮")
-                                        submit_succ = True
-                                        break
-                                    else:
-                                        print("提交订单失败...大于10次，直接就失败吧。试了也没用了。 ")
-                                        break
-                                except Exception as e:
-                                    # TODO 待优化，这里可能需要返回购物车页面继续进行,也可能结算按钮点击了但是还没有跳转
-                                    #     self.driver.find_element_by_link_text('我的购物车').click()
-                                    print("没发现提交按钮, 页面未加载, 重试...")
-                                    click_submit_times = click_submit_times + 1
-                                    sleep(0.1)
-                        else:
-                            print("点击结算按钮失败...")
+                        # print("当前时间戳为Option1:", datetime.now() - current_time)
+                        # current_time = datetime.now()
+                        self.driver.find_element_by_id("J_Go").click()
+                        # print("当前时间戳为Option2:", datetime.now() - current_time)
+                        # 获取元素方式结束 用时一般0.05s
+                        print("已经点击结算按钮...")
+                        click_submit_times = 0
+                        while True:
+                            try:
+                                if click_submit_times < 10:
+                                    self.driver.find_element_by_link_text('提交订单').click()
+                                    print("已经点击提交订单按钮")
+                                    submit_succ = True
+                                    break
+                                else:
+                                    print("提交订单失败...大于10次，直接就失败吧。试了也没用了。 ")
+                                    break
+                            except Exception as e:
+                                # TODO 待优化，这里可能需要返回购物车页面继续进行,也可能结算按钮点击了但是还没有跳转
+                                #     self.driver.find_element_by_link_text('我的购物车').click()
+                                print("没发现提交按钮, 页面未加载, 重试...")
+                                click_submit_times = click_submit_times + 1
+                                sleep(0.1)
                 except Exception as e:
                     print(e)
                     print("临时写的脚本, 可能出了点问题!!!")
