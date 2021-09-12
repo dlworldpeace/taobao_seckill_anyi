@@ -32,6 +32,7 @@ https://blog.csdn.net/qq_26525215/category_10710827.html
 淘宝、天猫半价抢购，抢电视、抢茅台，干死黄牛党
 ## 依赖
 ### 安装chrome浏览器，根据浏览器的版本找到对应的[chromedriver](http://npm.taobao.org/mirrors/chromedriver/)
+### 如果是MacOS系统用户，需要通过`brew install python-tk`安装_tinker
 
 ## 使用说明
 1、抢购前需要校准本地时间，然后把需要抢购的商品加入购物车  
