@@ -183,27 +183,29 @@ class ChromeDrive:
                         pyautogui.leftClick(x, y)
                         # 坐标计算方式结束
                         # 获取元素方式开始
-                        # jiesuan = self.driver.find_element_by_id("J_Go")
-                        # jiesuan.click()
-                        # 获取元素方式结束
-                        print("已经点击结算按钮...")
-                        click_submit_times = 0
-                        while True:
-                            try:
-                                if click_submit_times < 10:
-                                    self.driver.find_element_by_link_text('提交订单').click()
-                                    print("已经点击提交订单按钮")
-                                    submit_succ = True
-                                    break
-                                else:
-                                    print("提交订单失败...大于10次，直接就失败吧。试了也没用了。 ")
-                                    break
-                            except Exception as e:
-                                # TODO 待优化，这里可能需要返回购物车页面继续进行,也可能结算按钮点击了但是还没有跳转
-                                #     self.driver.find_element_by_link_text('我的购物车').click()
-                                print("没发现提交按钮, 页面未加载, 重试...")
-                                click_submit_times = click_submit_times + 1
-                                sleep(0.1)
+                        if self.driver.find_element_by_link_text("结 算"):
+                            self.driver.find_element_by_link_text("结 算").click()
+                            # 获取元素方式结束
+                            print("已经点击结算按钮...")
+                            click_submit_times = 0
+                            while True:
+                                try:
+                                    if click_submit_times < 10:
+                                        self.driver.find_element_by_link_text('提交订单').click()
+                                        print("已经点击提交订单按钮")
+                                        submit_succ = True
+                                        break
+                                    else:
+                                        print("提交订单失败...大于10次，直接就失败吧。试了也没用了。 ")
+                                        break
+                                except Exception as e:
+                                    # TODO 待优化，这里可能需要返回购物车页面继续进行,也可能结算按钮点击了但是还没有跳转
+                                    #     self.driver.find_element_by_link_text('我的购物车').click()
+                                    print("没发现提交按钮, 页面未加载, 重试...")
+                                    click_submit_times = click_submit_times + 1
+                                    sleep(0.1)
+                        else:
+                            print("点击结算按钮失败...")
                 except Exception as e:
                     print(e)
                     print("临时写的脚本, 可能出了点问题!!!")
