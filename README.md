@@ -31,15 +31,24 @@ https://blog.csdn.net/qq_26525215/category_10710827.html
 # taobao_seckill
 淘宝、天猫半价抢购，抢电视、抢茅台，干死黄牛党
 ## 依赖
-### 安装chrome浏览器，根据浏览器的版本找到对应的[chromedriver](http://npm.taobao.org/mirrors/chromedriver/)
-### 如果是MacOS系统用户，需要通过`brew install python-tk`安装_tinker
+1. 安装chrome浏览器
+2. 安装chromedriver到python的路径里
+```
+2.1. 记住`which python`跑出的路径，比如`usr/local/bin/python`。
+2.2. 然后去chrome的软件选择`About Google Chrome`记住你的chrome的版本，比如我的是`Version 93.0.4577.63`。
+2.3. 再去找到版本对应的[chromedriver](https://chromedriver.storage.googleapis.com/index.html)下载到本地。
+2.4. 解压这个文件包之后，把chromedriver这个文件挪去你的python安装路径，比如`usr/local/bin/`。
+2.5. 如果显示无法打开“python3.8”，那是因为MacOS里无法验证开发者，你可以跑`xattr -d com.apple.quarantine usr/local/bin/chromedriver`
+```
+3. 如果是MacOS系统用户，需要通过`brew install python-tk`安装_tinker
 
 ## 使用说明
-1、抢购前需要校准本地时间，然后把需要抢购的商品加入购物车  
-2、如果要打包成可执行文件，可使用pyinstaller自行打包  
-3、不需要打包的，直接在项目根目录下 执行 python3 main.py  
-4、程序运行后，会打开淘宝登陆页，需要自己手动点击切换到扫码登陆  
+1. 抢购前需要校准本地时间，然后把需要抢购的商品加入购物车  
+2. 如果要打包成可执行文件，可使用pyinstaller自行打包  
+3. 不需要打包的，直接在项目根目录下 执行 python3 main.py  
+4. 程序运行后，会打开淘宝登陆页，需要自己手动点击切换到扫码登陆  
 
-## 淘宝有针对selenium的检测，如果遇到验证码说明被反爬了，遇到这种情况应该换一个方案，凡是用到selenium的都会严重依赖网速、电脑配置。
-## 如果想直接绕过淘宝的检测，可以手动打开浏览器登陆淘宝，然后再用selenium接管浏览器。只提供思路，具体实现大佬们可以自己摸索。
+## 其他
+### 淘宝有针对selenium的检测，如果遇到验证码说明被反爬了，遇到这种情况应该换一个方案，凡是用到selenium的都会严重依赖网速、电脑配置。
+### 如果想直接绕过淘宝的检测，可以手动打开浏览器登陆淘宝，然后再用selenium接管浏览器。只提供思路，具体实现大佬们可以自己摸索。
 
